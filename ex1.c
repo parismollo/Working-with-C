@@ -29,10 +29,30 @@ void exercice3() {
     // printf("\n x[5] -> %d", *x); // ici on écrase pas la mémoire alloué
 }
 
+void exercice4() {
+    int *pt;
+    pt = malloc(5*sizeof(int));
+    if(pt==NULL) {perror("malloc"); exit(1);}
+    *pt = 10;
+    *(pt+1) = 20;
+    *(pt + 12) = 30; // C'est pas bien ça, cela sert à faire comprendre que le compilateur peut pas comprendre qu'on a depassé la mémoire alloué, c'est à nous de faire attention à cela.
+
+    int *pt2;
+    pt2 = malloc(5*sizeof(int));
+    if(pt2==NULL) {perror("malloc"); exit(1);}
+    pt2[0] = 10;
+    pt2[1] = 20;
+    pt2[12] = 30;
+
+    printf("\n[LOG]: Exercice 1.4-> pt=%d, pt+1=%d, pt+12=%d", *pt, *(pt+1), *(pt+12));
+    printf("\n[LOG]: -> pt2[0]=%d, pt2[1]=%d, pt2[12]=%d", pt2[0], pt2[1], pt2[12]);
+}
+
 int main () {
     exercice1();
     exercice2();
     exercice3();
+    exercice4();
     return EXIT_SUCCESS;
 }
 
