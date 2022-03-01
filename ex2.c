@@ -55,7 +55,7 @@ void array_append(array *t, int val) {
 void array_print(array *t) {
     assert(t!=NULL);
     for(int i=0; i<(t->taille); i++) {
-        printf("\nValue at pos x[%d]: %d", i, t->ptr[i]);
+        printf("\nValue at pos tab[%d]: %d", i, t->ptr[i]);
     }
 }
 
@@ -78,6 +78,17 @@ array* array_init_from(int *mem, unsigned int len, unsigned int cap) {
     return new_adr;
 }
 
+void array_remove(array *t, unsigned int index) {
+    assert(t!=NULL);
+    int pos = index;
+    while (pos+1<t->capacite-1) {
+        t->ptr[pos] = t->ptr[pos+1];
+        pos+=1;
+    }
+    t->ptr[pos] = 0;
+    t->taille -= 1;
+}
+
 
 int main () {
     array* x = array_init(10);
@@ -87,7 +98,9 @@ int main () {
     array_append(x, 10);
     array_append(x, 55);
     array_append(x, 36);
-    array_append(x, 96);
+    array_append(x, 2);
+    array_append(x, 7);
+    array_append(x, 5);
     array_print(x);
     printf("\nSearching for 36. Position found at: %d",array_search(x, 36));
     printf("\nSearching for 100. Position found at: %d",array_search(x, 100));
@@ -96,6 +109,11 @@ int main () {
     array* y = array_init_from(x->ptr, 3, 4);
     printf("\n[LOG]: y*.capacite=%d; y*.taille=%d; y*.ptr=%p", y->capacite, y->taille, y->ptr);
     array_print(y);
+
+    printf("\n");
+
+    array_remove(x, 2);
+    array_print(x);
 
     // printf("\nArray get: %d", array_get(x, (x->taille)-2));
     // array_destroy(x);
