@@ -59,6 +59,14 @@ void array_print(array *t) {
     }
 }
 
+int array_search(array *t, int val) {
+    assert(t!=NULL);
+    for(int i=0; i<(t->capacite); i++) {
+        if(val == t->ptr[i]) return i;
+    }
+    return -1;
+}
+
 
 int main () {
     array* x = array_init(10);
@@ -70,6 +78,8 @@ int main () {
     array_append(x, 36);
     array_append(x, 96);
     array_print(x);
+    printf("\nSearching for 36. Position found at: %d",array_search(x, 36));
+    printf("\nSearching for 100. Position found at: %d",array_search(x, 100));
     printf("\n[LOG]: x*.capacite=%d; x*.taille=%d; x*.ptr=%p", x->capacite, x->taille, x->ptr);
     // printf("\nArray get: %d", array_get(x, (x->taille)-2));
     // array_destroy(x);
