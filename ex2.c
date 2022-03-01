@@ -42,13 +42,36 @@ void array_set(array *t, unsigned int index, int valeur) {
     t->ptr[index] = valeur;
 }
 
+void array_append(array *t, int val) {
+    assert(t!=NULL);
+    if(t->capacite > t->taille) {
+        t->ptr[t->taille] = val;
+        t->taille+=1;
+    }else {
+        printf("\n[LOG]: No space available in the array");
+    }
+}
+
+void array_print(array *t) {
+    assert(t!=NULL);
+    for(int i=0; i<(t->taille); i++) {
+        printf("\nValue at pos x[%d]: %d", i, t->ptr[i]);
+    }
+}
+
 
 int main () {
     array* x = array_init(10);
     printf("\n[LOG]: Exercice 2.1- > x*: %p", x);
     printf("\n[LOG]: x*.capacite=%d; x*.taille=%d; x*.ptr=%p", x->capacite, x->taille, x->ptr);
-    array_set(x, 2, 36);
-    printf("\nArray get: %d", array_get(x, 2));
+    // array_set(x, 2, 36);
+    array_append(x, 10);
+    array_append(x, 55);
+    array_append(x, 36);
+    array_append(x, 96);
+    array_print(x);
+    printf("\n[LOG]: x*.capacite=%d; x*.taille=%d; x*.ptr=%p", x->capacite, x->taille, x->ptr);
+    // printf("\nArray get: %d", array_get(x, (x->taille)-2));
     // array_destroy(x);
     return EXIT_SUCCESS;
 }
