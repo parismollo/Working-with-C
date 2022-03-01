@@ -67,6 +67,17 @@ int array_search(array *t, int val) {
     return -1;
 }
 
+array* array_init_from(int *mem, unsigned int len, unsigned int cap) {
+    assert(cap>=len);
+    array* new_adr = array_init(cap);
+    for(int i=0; i<len; i++) {
+        // printf("\nmem[%d]: %d\n", i, mem[i]);
+        new_adr->ptr[i] = mem[i];
+        new_adr->taille+=1;
+    }
+    return new_adr;
+}
+
 
 int main () {
     array* x = array_init(10);
@@ -81,6 +92,11 @@ int main () {
     printf("\nSearching for 36. Position found at: %d",array_search(x, 36));
     printf("\nSearching for 100. Position found at: %d",array_search(x, 100));
     printf("\n[LOG]: x*.capacite=%d; x*.taille=%d; x*.ptr=%p", x->capacite, x->taille, x->ptr);
+
+    array* y = array_init_from(x->ptr, 3, 4);
+    printf("\n[LOG]: y*.capacite=%d; y*.taille=%d; y*.ptr=%p", y->capacite, y->taille, y->ptr);
+    array_print(y);
+
     // printf("\nArray get: %d", array_get(x, (x->taille)-2));
     // array_destroy(x);
     return EXIT_SUCCESS;
