@@ -89,6 +89,33 @@ void array_remove(array *t, unsigned int index) {
     t->taille -= 1;
 }
 
+void array_insert(array *t, unsigned int index, int valeur) {
+    
+    assert(t!=NULL);
+    assert(index <= t->taille);
+    if (t->taille == t->capacite) {
+        int *tmp = realloc(t, 2 * t->capacite * sizeof(int));
+        if(tmp == NULL) {perror("Error...;("); exit(1);}
+        t = tmp;
+        t->capacite *= 2;
+    }
+    
+    int pos = index;
+    int aux = t->ptr[index];
+
+    t->ptr[index] = valeur;
+    pos +=1;
+
+    while (pos<t->capacite) {
+        int tmp = t->ptr[pos];
+        t->ptr[pos] = aux;
+        aux = tmp;
+        pos+=1;
+    }
+    t->taille += 1;
+
+}
+
 
 int main () {
     array* x = array_init(10);
